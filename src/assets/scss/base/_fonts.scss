@@ -9,14 +9,6 @@ html, body {
     font-family: #{$font-sans-serif}, sans-serif;
     font-size: 10px;
     color: $color-base;
-
-    @media (max-width: $break) {
-        font-size: clamp(15px, calc(10px + 0.6vw), 10px);
-    }
-
-    @media (max-width: 320px) {
-        font-size: 10px;
-    }
 }
 
 
