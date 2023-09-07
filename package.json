@@ -1,7 +1,6 @@
 {
-    "name": "html-starter",
-    "version": "0.1.2",
-    "description": "スタティックページ制作用のテンプレートです。",
+    "name": "app-udcxx",
+    "version": "1.0.0",
     "main": "index.js",
     "scripts": {
         "sass": "sass --no-source-map --style=compressed src/assets/scss:dist/assets/css",
