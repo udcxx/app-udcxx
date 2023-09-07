@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>営業日数API</title>
+    <meta name="description" content="営業日数や祝日数などが取得できる営業日数APIのドキュメントです。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../assets/css/reset.css">
+    <link rel="stylesheet" href="../../assets/css/library/highlightjs.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <script src="../../assets/js/functions.js"></script>
+    <script src="../../assets/js/highlight.min.js"></script>
+    <script src="../../assets/js/script.js" defer></script>
+</head>
+<body>
+    <div class="wrap">
+        <h1>営業日数API by udcxx.</h1>
+
+        <p class="description">日本の各月ごとの営業日や祝日などの日数を取得することができるAPIです。</p>
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1301045842322864" crossorigin="anonymous"></script>
+        <!-- recitone -->
+        <ins class="adsbygoogle"
+            style="display:block"
+            data-ad-client="ca-pub-1301045842322864"
+            data-ad-slot="5658273013"
+            data-ad-format="auto"
+            data-full-width-responsive="true"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+
+        <h2>目次</h2>
+        <ul>
+            <li><a href="#url">URL</a></li>
+            <li><a href="#method">HTTPメソッド</a></li>
+            <li><a href="#char">文字コード</a></li>
+            <li><a href="#param">リクエストパラメーター</a></li>
+            <li><a href="#column">データの項目</a></li>
+            <li><a href="#sample">実行例</a></li>
+            <li><a href="#data">データについて</a></li>
+            <li><a href="#licence">ライセンス</a></li>
+            <li><a href="#contact">お問い合わせ</a></li>
+            <li><a href="#history">更新履歴</a></li>
+        </ul>
+
+        <h2 id="url">URL</h2>
+        <p><a href="https://app.udcxx.me/api/workday/">https://app.udcxx.me/api/workday/</a></p>
+
+        <h2 id="method">HTTPメソッド</h2>
+        <p>GET</p>
+
+        <h2 id="char">文字コード</h2>
+        <p>UTF-8</p>
+
+        <h2 id="param">リクエストパラメーター</h2>
+
+        <table>
+            <thead>
+                <tr><th>パラメーター</th><th>値</th><th>必須</th><th>内容</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>y</td><td>1960 以上 2100 以下の数値</td><td>No</td><td>年を指定します</td></tr>
+                <tr><td>m</td><td>1 以上 12 以下の数値</td><td>No</td><td>月を指定します</td></tr>
+                <tr><td>c</td><td>項目の省略名</td><td>No</td><td>取得したい項目を指定します</td></tr>
+            </tbody>
+        </table>
+
+        <ul>
+            <li>パラメーターを指定しない場合、登録されているすべてのデータを返します。</li>
+            <li>m パラメーター指定時に、y パラメーターの指定がない場合、実行時の年が指定されます。</li>
+            <li>c パラメーター指定時に、y パラメーターや m パラメーターの指定がない場合、実行時の年や月が指定されます。</li>
+        </ul>
+
+        <h2 id="column">データの項目</h2>
+
+        <table>
+            <thead>
+                <tr><th>項目名</th><th>省略名</th><th>内容</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>day</td><td>day</td><td>その月の日数（例：30）</td></tr>
+                <tr><td>weekendday</td><td>end</td><td>その月の土日の数（例：9）</td></tr>
+                <tr><td>holiday</td><td>hol</td><td>その月の祝日数（例：1）</td></tr>
+                <tr><td>weekend_and_holiday</td><td>wah</td><td>その月の土日数 + 祝日数（例：10）<br>祝日が土日に被る場合はカウントしません</td></tr>
+                <tr><td>weekday</td><td>week</td><td>その月の日数 - 土日祝数（例：20）</td></tr>
+                <tr><td>workday</td><td>work</td><td>その月の営業日数（例：20）<br>12/29 - 1/3 が含まれる場合、平日数から引かれます</td></tr>
+                <tr><td>estimated</td><td>est</td><td>政府からの正式な発表前の祝日かどうか（論理値）（例：False）<br>Trueの場合、推定値のため、変更される可能性があります。</td></tr>
+            </tbody>
+        </table>
+
+        <h2 id="sample">実行例</h2>
+
+        <h3 id="年の1年分のデータを取得する場合">2023年の1年分のデータを取得する場合</h3>
+        <h4 id="リクエスト">リクエスト</h4>
+        <p><a href="https://app.udcxx.me/api/workday/?y=2023">https://app.udcxx.me/api/workday/?y=2023</a></p>
+        
+        <h4 id="レスポンス">レスポンス</h4>
+        <details>
+            <summary>レスポンス内容を確認する</summary>
+            <pre>
+                <code class="language-json">
+{
+    "1": {
+        "day": 31,
+        "weekendday": 9,
+        "holiday": 3,
+        "weekend_and_holiday": 11,
+        "weekday": 20,
+        "workday": 19,
+        "estimated": "FALSE"
+    },
+    "2": {
+        "day": 28,
+        "weekendday": 8,
+        "holiday": 2,
+        "weekend_and_holiday": 9,
+        "weekday": 19,
+        "workday": 19,
+        "estimated": "FALSE"
+    },
+    "3": {
+        "day": 31,
+        "weekendday": 8,
+        "holiday": 1,
+        "weekend_and_holiday": 9,
+        "weekday": 22,
+        "workday": 22,
+        "estimated": "FALSE"
+    },
+    "4": {
+        "day": 30,
+        "weekendday": 10,
+        "holiday": 1,
+        "weekend_and_holiday": 10,
+        "weekday": 20,
+        "workday": 20,
+        "estimated": "FALSE"
+    },
+    "5": {
+        "day": 31,
+        "weekendday": 8,
+        "holiday": 3,
+        "weekend_and_holiday": 11,
+        "weekday": 20,
+        "workday": 20,
+        "estimated": "FALSE"
+    },
+    "6": {
+        "day": 30,
+        "weekendday": 8,
+        "holiday": 0,
+        "weekend_and_holiday": 8,
+        "weekday": 22,
+        "workday": 22,
+        "estimated": "FALSE"
+    },
+    "7": {
+        "day": 31,
+        "weekendday": 10,
+        "holiday": 1,
+        "weekend_and_holiday": 11,
+        "weekday": 20,
+        "workday": 20,
+        "estimated": "FALSE"
+    },
+    "8": {
+        "day": 31,
+        "weekendday": 8,
+        "holiday": 1,
+        "weekend_and_holiday": 9,
+        "weekday": 22,
+        "workday": 22,
+        "estimated": "FALSE"
+    },
+    "9": {
+        "day": 30,
+        "weekendday": 9,
+        "holiday": 2,
+        "weekend_and_holiday": 10,
+        "weekday": 20,
+        "workday": 20,
+        "estimated": "FALSE"
+    },
+    "10": {
+        "day": 31,
+        "weekendday": 9,
+        "holiday": 1,
+        "weekend_and_holiday": 10,
+        "weekday": 21,
+        "workday": 21,
+        "estimated": "FALSE"
+    },
+    "11": {
+        "day": 30,
+        "weekendday": 8,
+        "holiday": 2,
+        "weekend_and_holiday": 10,
+        "weekday": 20,
+        "workday": 20,
+        "estimated": "FALSE"
+    },
+    "12": {
+        "day": 31,
+        "weekendday": 10,
+        "holiday": 0,
+        "weekend_and_holiday": 10,
+        "weekday": 21,
+        "workday": 20,
+        "estimated": "FALSE"
+    }
+}
+                </code>
+            </pre>
+        </details>
+
+
+        <h3 id="年9月の1ヶ月分のデータを取得する場合">2023年9月の1ヶ月分のデータを取得する場合</h3>
+        <h4 id="リクエスト-1">リクエスト</h4>
+        <p><a href="https://app.udcxx.me/api/workday/?y=2023&amp;m=9">https://app.udcxx.me/api/workday/?y=2023&amp;m=9</a></p>
+        <h4 id="レスポンス-1">レスポンス</h4>
+        <pre>
+            <code class="language-json">
+{
+    "day": 30,
+    "weekendday": 9,
+    "holiday": 2,
+    "weekend_and_holiday": 10,
+    "weekday": 20,
+    "workday": 20,
+    "estimated": "FALSE"
+}
+            </code>
+        </pre>
+
+
+        <h3 id="年9月の営業日数を取得する場合">2023年9月の営業日数を取得する場合</h3>
+        <h4 id="リクエスト-2">リクエスト</h4>
+        <p><a href="https://app.udcxx.me/api/workday/?y=2023&amp;m=9&amp;c=work">https://app.udcxx.me/api/workday/?y=2023&amp;m=9&amp;c=work</a></p>
+        <h4 id="レスポンス-2">レスポンス</h4>
+        <pre>
+            <code class="language-json">
+20
+            </code>
+        </pre>
+
+
+        <h2 id="data">データについて</h2>
+        <p>内閣府が発表する国民の祝日に基づいてデータを作成しています。（<a href="https://www8.cao.go.jp/chosei/shukujitsu/gaiyou.html">国民の祝日について - 内閣府</a>）</p>
+        <p>内閣府から発表前の年のデータや、年末年始の休業日については、以下の判定条件をもとに祝日や営業日を推定しています。<br>なお、推定した祝日を元にしたデータについては、 <code>est</code> 項目が <code>True</code> になります。</p>
+
+        <h3 id="祝日と発生要因">祝日と発生要因</h3>
+        <table>
+            <thead>
+                <tr><th>祝日名</th><th>発生要因</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>元日</td><td>1月1日</td></tr>
+                <tr><td>成人の日</td><td>1月の第2月曜日</td></tr>
+                <tr><td>建国記念の日</td><td>2月11日</td></tr>
+                <tr><td>天皇誕生日</td><td>2月23日</td></tr>
+                <tr><td>春分の日</td><td>春分日</td></tr>
+                <tr><td>昭和の日</td><td>4月29日</td></tr>
+                <tr><td>憲法記念日</td><td>5月3日</td></tr>
+                <tr><td>みどりの日</td><td>5月4日</td></tr>
+                <tr><td>こどもの日</td><td>5月5日</td></tr>
+                <tr><td>海の日</td><td>7月の第3月曜日</td></tr>
+                <tr><td>山の日</td><td>8月11日</td></tr>
+                <tr><td>敬老の日</td><td>9月の第3月曜日</td></tr>
+                <tr><td>秋分の日</td><td>秋分日</td></tr>
+                <tr><td>スポーツの日</td><td>10月の第2月曜日</td></tr>
+                <tr><td>文化の日</td><td>11月3日</td></tr>
+                <tr><td>勤労感謝の日</td><td>11月23日</td></tr>
+            </tbody>
+        </table>
+
+        <h3 id="年初営業日について">年初営業日について</h3>
+        <p>1月1日から1月3日を営業日から除外する日として、1月1日の曜日に応じて営業日数を調整します。<br>1月1日は祝日となることに留意します。</p>
+        <ul>
+            <li>1月1日が金曜日の場合
+                <ul>
+                    <li>営業日から除外する日はない</li>
+                    <li>1月2日（土）、1月3日（日）となり、すでに「土日数」に加算されているため</li>
+                </ul>
+            </li>
+                <li>1月1日が木曜日・土曜日・日曜日の場合
+                <ul>
+                    <li>営業日数から1日だけ減らす</li>
+                    <li>1月2日または1月3日のいずれかが平日に該当するため</li>
+                    <li>1月1日が日曜日の場合、1月2日は月曜日だが振替休日となり、祝日扱いになる</li>
+                </ul>
+            </li>
+            <li>1月1日が月曜日・火曜日・水曜日の場合
+                <ul>
+                    <li>営業日数から2日減らす</li>
+                    <li>1月2日、1月3日を営業日から除外する</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h3 id="年末営業日について">年末営業日について</h3>
+        <p>12月29日から12月31日を営業日から除外する日として、12月31日の曜日に応じて営業日数を調整します。</p>
+        <ul>
+            <li>12月31日が日曜日・月曜日の場合
+                <ul>
+                <li>営業日数を1日だけ減らす</li>
+                <li>12月29日または12月31日のいずれかが平日に該当するため。</li>
+                </ul>
+            </li>
+            <li>12月31日が火曜日・土曜日の場合
+                <ul>
+                <li>営業日数を2日減らす</li>
+                <li>12月30日・12月31日または12月29日・12月30日の組み合わせが平日に該当するため。</li>
+                </ul>
+            </li>
+            <li>12月31日が水曜日・木曜日・金曜日の場合
+                <ul>
+                <li>営業日数を3日減らす</li>
+                <li>3日ともに平日に該当するため。</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h2 id="licence">ライセンス</h2>
+        <p>MITライセンス</p>
+        <p>個人、商用含め自由にご利用いただけます。<br>なお、データの誤りや、サービスの停止をはじめ、いかなる理由により利用者に損害等が発生しても、提供者は一切責任を負いません。</p>
+
+        <h2 id="contact">お問い合わせ</h2>
+        <p>お気づきの点などがありましたら、お気軽に <a href="https://udcxx.me/">メールフォーム</a> からお問い合わせください</p>
+
+        <h2 id="history">更新履歴</h2>
+
+        <table>
+            <thead>
+                <tr><th>日付</th><th>更新内容</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>2023-09-06</td><td>公開</td></tr>
+            </tbody>
+        </table>
+
+        <footer>&copy; <a href="https://udcxx.me/" target="_blank">udcxx.me</a></footer>
+    </div>
+</body>
+</html>

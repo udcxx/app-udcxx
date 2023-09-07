@@ -1,0 +1,113 @@
+@use "../vars" as *;
+@use "../function" as *;
+
+//
+// root
+//
+
+html, body {
+    font-family: #{$font-sans-serif}, sans-serif;
+    font-size: 10px;
+    color: $color-base;
+
+    @media (max-width: $break) {
+        font-size: clamp(15px, calc(10px + 0.6vw), 10px);
+    }
+
+    @media (max-width: 320px) {
+        font-size: 10px;
+    }
+}
+
+
+
+//
+// 見出し
+//
+
+h1 {
+    @include fontsize(28); font-weight: 700;
+    color: $color-title;
+}
+
+h2 {
+    @include fontsize(22); font-weight: 700;
+    color: $color-title;
+}
+
+h3 {
+    @include fontsize(18.72); font-weight: 400;
+    color: $color-title;
+}
+
+h4 {
+    @include fontsize(15); font-weight: 400;
+    color: $color-title;
+}
+
+h5 {
+    @include fontsize(13.28); font-weight: 400;
+    color: $color-title;
+}
+
+h6 {
+    @include fontsize(10.72); font-weight: 400;
+    color: $color-title;
+}
+
+
+
+//
+// そのほか
+//
+
+p {
+    line-height: 1.8em;
+    @include fontsize(14);
+}
+
+a {
+    color: $color-link;
+}
+
+li {
+    line-height: 1.4em;
+    @include fontsize(14);
+}
+
+summary {
+    line-height: 1.8em;
+    @include fontsize(14);
+}
+
+table {
+    line-height: 1.4em;
+    @include fontsize(14);
+    font-weight: 400;
+    th {
+        font-weight: 700;
+        text-align: left;
+        @include fontsize(16);
+    }
+}
+
+code {
+    line-height: 1.2em;
+    @include fontsize(14);    
+}
+
+footer {
+    color: $color-accent;
+
+    a {
+        color: $color-accent;
+    }
+}
+
+//
+// 明朝体
+//
+
+.serif {
+    font-family: #{$font-serif}, serif;
+}
