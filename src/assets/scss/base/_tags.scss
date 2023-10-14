@@ -23,7 +23,6 @@ h4 {
 }
 
 a {
-    color: $color-link;
     opacity: 1;
     transition: opacity .7s;
     &:hover {
@@ -83,6 +82,5 @@ table {
 }
 
 footer {
-    text-align: center;
-    padding: 4rem 0 1rem;
+    margin: 8rem auto 1rem;
 }

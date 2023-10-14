@@ -89,10 +89,13 @@ code {
 }
 
 footer {
-    color: $color-accent;
+    text-align: center;
+    color: $color-base;
+    @include fontsize(12);
 
     a {
-        color: $color-accent;
+        text-decoration: underline;
+        color: $color-base;
     }
 }
 

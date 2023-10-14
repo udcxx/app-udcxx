@@ -1,0 +1,49 @@
+@use "../vars" as *;
+@use "../function" as *;
+
+.top--loading .sk-cube-grid {
+    width: 50px; height: 50px;
+    margin: 0 auto;
+}
+.top--loading .sk-cube-grid .sk-cube {
+    width: 33%; height: 33%;
+    background-color: #999;
+    float: left;
+    animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out; 
+}
+.top--loading .sk-cube-grid .sk-cube1 {
+    animation-delay: 0.2s; 
+}
+.top--loading .sk-cube-grid .sk-cube2 {
+    animation-delay: 0.3s; 
+}
+.top--loading .sk-cube-grid .sk-cube3 {
+    animation-delay: 0.4s; 
+}
+.top--loading .sk-cube-grid .sk-cube4 {
+    animation-delay: 0.1s; 
+}
+.top--loading .sk-cube-grid .sk-cube5 {
+    animation-delay: 0.2s; 
+}
+.top--loading .sk-cube-grid .sk-cube6 {
+    animation-delay: 0.3s; 
+}
+.top--loading .sk-cube-grid .sk-cube7 {
+    animation-delay: 0s; 
+}
+.top--loading .sk-cube-grid .sk-cube8 {
+    animation-delay: 0.1s; 
+}
+.top--loading .sk-cube-grid .sk-cube9 {
+    animation-delay: 0.2s; 
+}
+
+@keyframes sk-cubeGridScaleDelay {
+  0%, 70%, 100% {
+    transform: scale3D(1, 1, 1);
+  } 
+  35% {
+    transform: scale3D(0, 0, 1);
+  } 
+}
