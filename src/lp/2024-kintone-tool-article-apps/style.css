@@ -64,7 +64,7 @@ html, body {
 }
 .fv--description {
     margin-bottom: 10rem;
-    font-size: 1.8rem;
+    font-size: 18px;
     line-height: 1.8em;
     text-align: center;
 }
@@ -94,7 +94,7 @@ html, body {
 }
 .sphere--sub {
     margin: 0 auto;
-    font-size: 2.5rem;
+    font-size: 25px;
     color: var(--color-white);
     position: absolute;
     top: 5rem; left: 0; right: 0;
@@ -102,7 +102,7 @@ html, body {
 }
 .sphere--title {
     margin: 0 auto;
-    font-size: 5rem; font-weight: 900;
+    font-size: 50px; font-weight: 900;
     color: var(--color-white);
     position: absolute;
     top: 9rem; left: 0; right: 0;
@@ -110,7 +110,7 @@ html, body {
     text-align: center;
 }
 .sphere--title.--adjust_space {
-    font-size: 4rem;
+    font-size: 40px;
     letter-spacing: -0.1em;
     transform: scale(1, 1.25);
 }
@@ -136,25 +136,74 @@ html, body {
     align-items: flex-end;
 }
 .sec_title--no {
-    font-size: 20rem;
+    font-size: 200px;
     color: var(--color-yellow);
 }
 .sec_title--sub {
     display: block;
-    font-size: 2.6rem;
+    font-size: 26px;
     font-family: 'Noto Sans JP', sans-serif;
 }
 .sec_title--title {
     display: block;
-    font-size: 4.2rem; font-weight: 900;
+    font-size: 42px; font-weight: 900;
     font-family: 'Noto Sans JP', sans-serif;
     line-height: 1.5em;
 }
 
 .sec_description {
     margin: 2rem 0 4rem 8.5rem;
-    font-size: 1.6rem;
+    font-size: 16px;
     line-height: 1.5em;
+}
+
+
+
+
+/* ----------------------------------------
+    Tools
+---------------------------------------- */
+.tool--item {
+    width: 100%;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.tool--item:nth-of-type(2n+1) {
+    flex-direction: row-reverse;
+}
+.tool--image_wrap {
+    width: 500px; height: 350px;
+    margin-right: 10px;
+    position: relative;
+    flex-shrink: 0;
+}
+.tool--image {
+    width: 100%; height: 100%;
+    margin: 0 auto;
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    display: block;
+}
+.tool--details {
+    position: relative;
+}
+.tool--title {
+    padding: 10px 0;
+    font-size: 28px; font-weight: 900;
+    font-family: 'Noto Sans JP', sans-serif;
+    line-height: 1em;
+}
+.tool--title--sub {
+    margin-bottom: 20px;
+    display: block;
+    font-size: 16px; font-weight: 400;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+.tool--text {
+    font-size: 16px;
+    line-height: 2em;
 }
 
 
@@ -163,13 +212,16 @@ html, body {
     Articles
 ---------------------------------------- */
 .articles {
+    margin-bottom: 8rem;
     display: flex;
     justify-content: space-between;
     align-items: stretch;
+    flex-wrap: wrap;
 }
 
 .articles--item {
     width: 49%;
+    margin: 0 auto 1%;
     padding: 5px 5px 2rem;
     display: block;
     position: relative;
@@ -177,10 +229,16 @@ html, body {
     border-radius: 10px;
     box-sizing: border-box;
 }
+@media (max-width: 1000px) {
+    .articles--item {
+        width: 90%;
+        margin: 0 auto 3%;
+    }
+}
 .articles--item::after {
     content: '記事を読む 》';
     display: block;
-    font-size: 1.2rem;
+    font-size: 12px;
     position: absolute;
     bottom: 5px; right: 5px;
 }
@@ -191,7 +249,7 @@ html, body {
     margin: 0 0 0 auto;
     padding: 2px 5px;
     display: inline-block;
-    font-size: 1.2rem;
+    font-size: 12px;
     color: var(--color-white);
     position: absolute;
     top: 5px; right: 5px;
@@ -200,11 +258,11 @@ html, body {
     background-color: var(--color-blue);
 }
 .articles--title {
-    margin: 2rem auto 1.5rem;
-    font-size: 2.1rem; font-weight: 700;
+    margin: 20px auto 1.5rem;
+    font-size: 21px; font-weight: 700;
     line-height: 1.5em;
 }
 .articles--details {
-    font-size: 1.6rem;
+    font-size: 16px;
     line-height: 1.5em;
 }
