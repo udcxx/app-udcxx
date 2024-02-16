@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>無趣味の戯言API</title>
+    <meta name="description" content="ブログ「無趣味の戯言」の記事情報を取得することができるAPIのドキュメントです。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../assets/css/reset.css">
+    <link rel="stylesheet" href="../../assets/css/library/highlightjs.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <script src="../../assets/js/functions.js"></script>
+    <script src="../../assets/js/highlight.min.js"></script>
+    <script src="../../assets/js/script.js" defer></script>
+</head>
+<body>
+    <div class="wrap">
+        <h1>無趣味の戯言API by udcxx.</h1>
+
+        <p class="description">ブログ「無趣味の戯言」の記事情報を取得することができるAPIです。</p>
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1301045842322864" crossorigin="anonymous"></script>
+        <!-- recitone -->
+        <ins class="adsbygoogle"
+            style="display:block"
+            data-ad-client="ca-pub-1301045842322864"
+            data-ad-slot="5658273013"
+            data-ad-format="auto"
+            data-full-width-responsive="true"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+
+        <h2>目次</h2>
+        <ul>
+            <li><a href="#url">URL</a></li>
+            <li><a href="#method">HTTPメソッド</a></li>
+            <li><a href="#char">文字コード</a></li>
+            <li><a href="#param">リクエストパラメーター</a></li>
+            <li><a href="#column">データの項目</a></li>
+            <li><a href="#sample">実行例</a></li>
+            <li><a href="#licence">ライセンス</a></li>
+            <li><a href="#contact">お問い合わせ</a></li>
+            <li><a href="#history">更新履歴</a></li>
+        </ul>
+
+        <h2 id="url">URL</h2>
+        <p><a href="https://app.udcxx.me/api/blog/">https://app.udcxx.me/api/blog/</a></p>
+
+        <h2 id="method">HTTPメソッド</h2>
+        <p>GET</p>
+
+        <h2 id="char">文字コード</h2>
+        <p>UTF-8</p>
+
+        <h2 id="param">リクエストパラメーター</h2>
+
+        <table>
+            <thead>
+                <tr><th>パラメーター</th><th>値</th><th>必須</th><th>内容</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>type</td><td>article</td><td>No</td><td>省略した場合、articleが指定されます。</td></tr>
+                <tr><td>limit</td><td>1 以上 50 以下の整数</td><td>No</td><td>省略した場合、10が指定されます</td></tr>
+                <tr><td>offset</td><td>数値</td><td>No</td><td>取得をスキップする記事数。<br>省略すると0が指定されます。<br>offset=10 を指定した場合、11件目から取得します。</td></tr>
+                <tr><td>order</td><td>ASC / DESC / RAND</td><td>No</td><td>ASC：昇順（古い記事から）<br>DESC：降順（新しい記事から）<br>RAND：ランダム</td></tr>
+            </tbody>
+        </table>
+
+        <ul>
+            <li>order パラメーターに RAND を指定した場合、offset は無視されます。また、実行ごとにランダムになるため、連続で実行した場合、同じ結果となる可能性があります。</li>
+        </ul>
+
+        <h2 id="column">データの項目</h2>
+
+        <table>
+            <thead>
+                <tr><th>項目名</th><th>内容</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>title</td><td>記事のタイトル</td></tr>
+                <tr><td>url</td><td>記事のURL</td></tr>
+                <tr><td>tags</td><td>タグ（スペース区切り）</td></tr>
+                <tr><td>description</td><td>記事の概要</td></tr>
+                <tr><td>eyecatch</td><td>アイキャッチ画像のURL</td></tr>
+                <tr><td>eyecatchemoji</td><td>アイキャッチ絵文字</td></tr>
+                <tr><td>moreresponce</td><td>limit以降にも記事があるか（Boolean）</td></tr>
+            </tbody>
+        </table>
+
+        <h2 id="sample">実行例</h2>
+
+        <h3 id="古い記事から50件分取得する場合">古い記事から50件分取得する場合</h3>
+        <h4 id="リクエスト">リクエスト</h4>
+        <p><a href="https://app.udcxx.me/api/blog/?type=article&order=ASC&limit=50&offset=0">https://app.udcxx.me/api/blog/?type=article&order=ASC&limit=50&offset=0</a></p>
+        
+        <h4 id="レスポンス">レスポンス</h4>
+        <details>
+            <summary>レスポンス内容を確認する</summary>
+            <pre>
+                <code class="language-json">
+{
+    "articles": [
+        {
+            "title": "特定の予定のみを別カレンダーにコピーするスクリプト",
+            "url": "https://blog.udcxx.me/article/181208/gas-schedule-copy/",
+            "tags": "IT GAS",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "181208.jpg",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "【読書録】コンビニ人間",
+            "url": "https://blog.udcxx.me/article/181210/konbini-ningen/",
+            "tags": "Book",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "181210.jpg",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "オリジナル香水「Dance」を1年以上使ってる話",
+            "url": "https://blog.udcxx.me/article/190109/perfume-dance/",
+            "tags": "Blog Vue IT GAS Life",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "190109.jpg",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "お金の流れを整えてみました",
+            "url": "https://blog.udcxx.me/article/190504/money-flow/",
+            "tags": "Life Money",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "190504.jpg",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "ポートフォリオサイトリニューアルしました",
+            "url": "https://blog.udcxx.me/article/190616/portfolio-updated/",
+            "tags": "Portfolio IT Life",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "190616.jpg",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "【読書録】ナナメの夕暮れ",
+            "url": "https://blog.udcxx.me/article/190804/naname-no-yuugure/",
+            "tags": "Book",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "190804.png",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "共通ポイント・クレカ周りをもう一度見直してみた",
+            "url": "https://blog.udcxx.me/article/190823/point-and-creditcerds/",
+            "tags": "Life Money",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "190823.jpg",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "速度改善を考えてみた",
+            "url": "https://blog.udcxx.me/article/190831/portfolio-speedup/",
+            "tags": "Blog Nuxt IT",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "190831.jpg",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "Hello World!!",
+            "url": "https://blog.udcxx.me/article/191001/hello-world/",
+            "tags": "Blog Nuxt IT",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "191001.jpg",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "個人用Githubを活用しています",
+            "url": "https://blog.udcxx.me/article/191018/use-git/",
+            "tags": "IT",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "191018.jpg",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "中学生の弟のスマホデビューにmineoとiPhone 8 Plusを用意しました",
+            "url": "https://blog.udcxx.me/article/191021/mineo-iphone8plus/",
+            "tags": "iOS IT Life Gadget",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "191021.jpg",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "CPV35 ラゲッジルームランプをLED化",
+            "url": "https://blog.udcxx.me/article/191031/luggage_room-led/",
+            "tags": "Car",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "191031.jpg",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "ブログを修正アップデートしました",
+            "url": "https://blog.udcxx.me/article/191101/blog-fixed/",
+            "tags": "Blog Nuxt IT",
+            "description": "このブログ内にある、インスタグラムへのリンクと、OG Titleを変更する微調整を行いました！",
+            "eyecatch": "191101.jpg",
+            "eyecatchemoji": null
+        },
+        {
+            "title": "FTPアップまでコマンドで終わらせる",
+            "url": "https://blog.udcxx.me/article/191111/ftp-update/",
+            "tags": "Blog Nuxt IT",
+            "description": "FileZillaを使わずに、コマンド1つでデプロイからサーバーへのアップロードまで完了できるようにアップデートしました。",
+            "eyecatch": "191111.jpg",
+            "eyecatchemoji": null
+        },
+        {
+            "title": "COMPのトライアルパックを試してみました",
+            "url": "https://blog.udcxx.me/article/191117/comp/",
+            "tags": "Life",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "191117.jpg",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "Chromeでタブをホバーしたときにスクショが出るのが地味に便利",
+            "url": "https://blog.udcxx.me/article/191121/chrome-hover-card-image/",
+            "tags": "IT",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "191121.png",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "iHerbで購入して3ヶ月程経ちました",
+            "url": "https://blog.udcxx.me/article/191203/supplement-iherb/",
+            "tags": "Life",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "191203.jpg",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "Macで愛用してるアプリたち",
+            "url": "https://blog.udcxx.me/article/191204/mac-app/",
+            "tags": "Mac IT",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "191204.jpg",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "とあるプロジェクトのお手伝いをしました",
+            "url": "https://blog.udcxx.me/article/191217/meetup-with-locals-in-okinawa/",
+            "tags": "Web IT",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "191217.jpg",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "サブスクを作ればいいのでは",
+            "url": "https://blog.udcxx.me/article/191218/self-subscription/",
+            "tags": "Life Money",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "191218.jpg",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "年末の大洗車",
+            "url": "https://blog.udcxx.me/article/191222/2019last-wash/",
+            "tags": "Car",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "191222.jpg",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "Atomで構文チェックする linter の導入が難しかった話",
+            "url": "https://blog.udcxx.me/article/191227/atom-linter/",
+            "tags": "IT",
+            "description": "AtomでWebコーディングの時に構文エラーチェックをしてくれるlinterというパッケージをインストールする奮闘記",
+            "eyecatch": "191227.png",
+            "eyecatchemoji": null
+        },
+        {
+            "title": "Atomのstylelintをカスタマイズする",
+            "url": "https://blog.udcxx.me/article/191228/atom-stylelint-custom/",
+            "tags": "IT",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "191228.jpg",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "Hello, New year 2020 !!",
+            "url": "https://blog.udcxx.me/article/200108/new-year/",
+            "tags": "Life",
+            "description": "あけましておめでとうございます、だいちゃんです。",
+            "eyecatch": "200108.jpg",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "Web Developer Roadmapからキャリアを考える",
+            "url": "https://blog.udcxx.me/article/200116/think-career-with-web-developer-roadmap/",
+            "tags": "Web IT Life",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "200116.jpg",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "Analyticsの設定を直した【3度目の正直】",
+            "url": "https://blog.udcxx.me/article/200120/analytics-fix-3/",
+            "tags": "Blog Nuxt IT",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "200120_2.jpg",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "簡単なHTMLページを簡単に作るためのテンプレ",
+            "url": "https://blog.udcxx.me/article/200120/html-template/",
+            "tags": "Web IT",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "200120.jpg",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "Macのゴミデータを削除する",
+            "url": "https://blog.udcxx.me/article/200129/bastard-files/",
+            "tags": "Mac IT",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "200129.jpg",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "僕がブログを続けている理由",
+            "url": "https://blog.udcxx.me/article/200202/blog/",
+            "tags": "Blog Life",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "200202.jpg",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "npm-run-allの導入とページネーションの修正をしました",
+            "url": "https://blog.udcxx.me/article/200206/npm-run-all-and-pagination/",
+            "tags": "Blog Nuxt IT",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "200206.jpg",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "オリジナル香水Danceをまた購入した",
+            "url": "https://blog.udcxx.me/article/200207/perfume-dance-3/",
+            "tags": "Life",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "190109.jpg",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "車のオーディオ構成",
+            "url": "https://blog.udcxx.me/article/200208/car-audios/",
+            "tags": "Car",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "200208.jpg",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "Okidokiポイントの移行先を検討する",
+            "url": "https://blog.udcxx.me/article/200214/okidoki-usecase/",
+            "tags": "Life Money",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "200214.jpg",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "僕の音楽の管理方法",
+            "url": "https://blog.udcxx.me/article/200217/music-management/",
+            "tags": "IT Life",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "200217.jpg",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "16年落ちのスカイラインを買った理由",
+            "url": "https://blog.udcxx.me/article/200226/why-buy-skyline/",
+            "tags": "Car",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "191222.jpg",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "【JS】onloadイベントは思ったより後から来る",
+            "url": "https://blog.udcxx.me/article/200227/js-onload-event/",
+            "tags": "Web IT",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "200227.jpg",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "Gitのアカウントをリポジトリごとに使い分ける",
+            "url": "https://blog.udcxx.me/article/200303/change-git-account/",
+            "tags": "IT",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "200303.jpg",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "Nuxt.jsでのURL表記を統一した【'20/12/04 追記】",
+            "url": "https://blog.udcxx.me/article/200304/add-trailing-slash/",
+            "tags": "Blog Nuxt IT",
+            "description": "GAでURLがめちゃくちゃだったので、トレイリングスラッシュ付きに統一されるよう、Nuxt.jsの設定を見直しました",
+            "eyecatch": "200304.jpg",
+            "eyecatchemoji": null
+        },
+        {
+            "title": "コアサーバー✕FileZillaでhtpasswd設定するとき毎回ハマるのでメモ",
+            "url": "https://blog.udcxx.me/article/200316/coreserver-fillezilla-htpasswd/",
+            "tags": "Web IT",
+            "description": "コアサーバーのフルパスは、FileZillaで見えるものと異なっていることに気づかず、何度も引っかかってしまってます...",
+            "eyecatch": "200316.jpg",
+            "eyecatchemoji": null
+        },
+        {
+            "title": "【GAS】毎日自動で記事を投下するbotを作る(1)",
+            "url": "https://blog.udcxx.me/article/200317/gas-blog-tweet-1/",
+            "tags": "IT GAS",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "200317.png",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "【GAS】毎日自動で記事を投下するbotを作る(2)",
+            "url": "https://blog.udcxx.me/article/200318/gas-blog-tweet-2/",
+            "tags": "IT GAS",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "200318.jpg",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "【GAS】毎日自動で記事を投下するbotを作る(3)",
+            "url": "https://blog.udcxx.me/article/200319/gas-blog-tweet-3/",
+            "tags": "IT GAS",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "200319.jpg",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "【JS】ページ内リンクをスムーススクロールさせる【IE対応】",
+            "url": "https://blog.udcxx.me/article/200323/smoothscroll/",
+            "tags": "Web IT",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "200323.jpg",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "amazletがサービス終了していました",
+            "url": "https://blog.udcxx.me/article/200330/amazlet-is-no-longer-available/",
+            "tags": "Web IT",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "200330.jpg",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "VS Codeの隠しフォルダ設定を変更する",
+            "url": "https://blog.udcxx.me/article/200408/vscode-files-exclude/",
+            "tags": "IT",
+            "description": "VSCodeで隠しフォルダやhtaccessなどの隠しファイルもファイルツリーに表示されるように設定する方法",
+            "eyecatch": "200408.jpg",
+            "eyecatchemoji": null
+        },
+        {
+            "title": "git pushしただけでアップロードまで終わらせる",
+            "url": "https://blog.udcxx.me/article/200409/husky-ftp-upload/",
+            "tags": "Blog Nuxt IT",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "200409.jpg",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "URLのエンコードをする関数を作りました",
+            "url": "https://blog.udcxx.me/article/200414/url-encode-checker/",
+            "tags": "IT",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "200414.jpg",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "Googleドライブの「マイドライブに追加」を復活させる",
+            "url": "https://blog.udcxx.me/article/200518/google-drive-add-mydrive/",
+            "tags": "IT GAS",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "200518.jpg",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "CSS Tips集",
+            "url": "https://blog.udcxx.me/article/200526/css-miss/",
+            "tags": "Web IT",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "200526.jpg",
+            "eyecatchemoji": "📄"
+        },
+        {
+            "title": "Youtube IFrame Player APIでの埋め込み実装メモ",
+            "url": "https://blog.udcxx.me/article/200604/ytb-api-player/",
+            "tags": "Web IT",
+            "description": "こんにちは、だいちゃんです。",
+            "eyecatch": "200604.jpg",
+            "eyecatchemoji": "📄"
+        }
+    ],
+    "moreresponce": true
+}
+                </code>
+            </pre>
+        </details>
+
+
+        <h3 id="2番目に新しい記事を取得する場合">2番目に新しい記事を取得する場合</h3>
+        <h4 id="リクエスト-1">リクエスト</h4>
+        <p><a href="https://app.udcxx.me/api/blog/?type=article&limit=1&order=DESC&offset=1">https://app.udcxx.me/api/blog/?type=article&limit=1&order=DESC&offset=1</a></p>
+        <h4 id="レスポンス-1">レスポンス</h4>
+        <pre>
+            <code class="language-json">
+{
+    "articles": [
+        {
+            "title": "VSCodeにMinifyAllを導入してみた",
+            "url": "https://blog.udcxx.me/article/240129/minifyall-in-vscode/",
+            "tags": "IT",
+            "description": "VSCode（Visual Studio Code）にMinifyAllという拡張機能を入れて使ってみました",
+            "eyecatch": null,
+            "eyecatchemoji": "👜"
+        }
+    ],
+    "moreresponce": true
+}
+            </code>
+        </pre>
+
+
+        <h2 id="licence">ライセンス</h2>
+        <p>MITライセンス</p>
+        <p>個人、商用含め自由にご利用いただけます。<br>なお、データの誤りや、サービスの停止をはじめ、いかなる理由により利用者に損害等が発生しても、提供者は一切責任を負いません。</p>
+
+        <h2 id="contact">お問い合わせ</h2>
+        <p>お気づきの点などがありましたら、お気軽に <a href="https://udcxx.me/contact/?sub=API">コンタクトフォーム</a> からお問い合わせください</p>
+
+        <h2 id="history">更新履歴</h2>
+
+        <table>
+            <thead>
+                <tr><th>日付</th><th>更新内容</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>2024-02-16</td><td>公開</td></tr>
+            </tbody>
+        </table>
+
+        <footer>&copy; <a href="https://udcxx.me/" target="_blank">udcxx.me</a></footer>
+    </div>
+</body>
+</html>
