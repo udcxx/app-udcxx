@@ -13,7 +13,9 @@
         "watch:cpx-html": "onchange \"src/**/*.html\" -- npm run cpx-html",
         "cpx-js": "cpx \"src/**/*.js\" \"dist/\"",
         "watch:cpx-js": "onchange \"src/**/*.js\" -- npm run cpx-js",
-        "dev": "run-s cpx-img cpx-html cpx-js sass all-run-watch",
+        "cpx-css": "cpx \"src/**/*.css\" \"dist/\"",
+        "watch:cpx-css": "onchange \"src/**/*.css\" -- npm run cpx-css",
+        "dev": "run-s cpx-img cpx-html cpx-js cpx-css sass all-run-watch",
         "all-run-watch": "run-p watch:*",
         "deploy": "node ./scripts/git-ftp.js"
     },
